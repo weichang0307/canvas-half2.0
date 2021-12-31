@@ -76,14 +76,15 @@ class Button{
 				}
 			}
 			this.touchend=(e)=>{
-				let pp=get_p_in_world(e.touches[0].pageX,e.touches[0].pageY)
+				
 				if(this.ispress){
 					this.up(e)
+					let pp=get_p_in_world(e.touches[0].pageX,e.touches[0].pageY)
 					this.ispress=false
 					if(pp.x>this.position.x&&pp.x<this.position.x+this.scale.x&&pp.y>this.position.y&&pp.y<this.position.y+this.scale.y){
 						this.click(e)
 					}
-					
+
 					
 					
 				}
