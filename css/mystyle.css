@@ -1,0 +1,21 @@
+
+
+body{
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+canvas{
+  
+  height: 100%;
+  width: 100%;
+}
+#stats {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+html,
+body{
+  overscroll-behavior-y: contain;
+}
