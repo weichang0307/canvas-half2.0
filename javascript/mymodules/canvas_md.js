@@ -48,12 +48,12 @@ class Button{
 		
 		if(is_computer){
 			this.mousedown=(e)=>{
-			this.ispress=true
-			let pp=get_p_in_world(e.pageX,e.pageY)
-			if(pp.x>this.position.x&&pp.x<this.position.x+this.scale.x&&pp.y>this.position.y&&pp.y<this.position.y+this.scale.y){
 				this.ispress=true
-				this.down(e)
-			}
+				let pp=get_p_in_world(e.pageX,e.pageY)
+				if(pp.x>this.position.x&&pp.x<this.position.x+this.scale.x&&pp.y>this.position.y&&pp.y<this.position.y+this.scale.y){
+					this.ispress=true
+					this.down(e)
+				}
 			}
 			this.mouseup=(e)=>{
 				let pp=get_p_in_world(e.pageX,e.pageY)
@@ -69,8 +69,7 @@ class Button{
 			}
 		}else{
 			this.touchstart=(e)=>{
-			this.ispress=true
-			let pp=get_p_in_world(e.touches[0].pageX,e.touches[0].pageY)
+				let pp=get_p_in_world(e.touches[0].pageX,e.touches[0].pageY)
 				if(pp.x>this.position.x&&pp.x<this.position.x+this.scale.x&&pp.y>this.position.y&&pp.y<this.position.y+this.scale.y){
 					this.ispress=true
 					this.down(e)
@@ -84,6 +83,7 @@ class Button{
 					if(pp.x>this.position.x&&pp.x<this.position.x+this.scale.x&&pp.y>this.position.y&&pp.y<this.position.y+this.scale.y){
 						this.click(e)
 					}
+					
 					
 					
 				}
@@ -138,6 +138,7 @@ class Slider{
 		this.font=font
 		this.ispress=false
 		this.is_on=false
+
 		this.mousedown=(e)=>{
 			this.ispress=true
 			let pp=get_p_in_world(e.pageX,e.pageY)
