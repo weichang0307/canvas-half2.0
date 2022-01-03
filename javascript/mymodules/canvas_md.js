@@ -80,9 +80,8 @@ class Button{
 				
 				if(this.ispress){
 					this.up(e)
-					
-					document.write(e.touches.length)
-					let pp=get_p_in_world(e.touches[0].pageX,e.touches[0].pageY)
+					document.write(e.changedTouches[0].pageX)
+					let pp=get_p_in_world(e.changedTouches[0].pageX,e.changedTouches[0].pageY)
 					
 					this.ispress=false
 					if(pp.x>this.position.x&&pp.x<this.position.x+this.scale.x&&pp.y>this.position.y&&pp.y<this.position.y+this.scale.y){
