@@ -49,6 +49,7 @@ class Button{
 		if(is_computer){
 			this.mousedown=(e)=>{
 				this.ispress=true
+				
 				let pp=get_p_in_world(e.pageX,e.pageY)
 				if(pp.x>this.position.x&&pp.x<this.position.x+this.scale.x&&pp.y>this.position.y&&pp.y<this.position.y+this.scale.y){
 					this.ispress=true
@@ -79,7 +80,7 @@ class Button{
 				
 				if(this.ispress){
 					this.up(e)
-					document.write(e.touches[0].pageX)
+					document.write(e.touches)
 					let pp=get_p_in_world(e.touches[0].pageX,e.touches[0].pageY)
 					
 					this.ispress=false

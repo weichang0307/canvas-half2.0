@@ -46,7 +46,7 @@ function update(){
 }
 function draw(){
 	camera.start(ctx)
-	background('yellow',-1000,-800,2000,1600)
+	background('green',-1000,-800,2000,1600)
 	
 	s01.draw()
 	b01.draw()
