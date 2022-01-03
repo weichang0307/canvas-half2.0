@@ -44,7 +44,7 @@ class Button{
 		this.ispress=false
 		this.down=(e)=>{this.color='blue'}
 		this.up=(e)=>{this.color='white'}
-		this.click=(e)=>{this.color='white'}
+		this.click=(e)=>{this.color='red'}
 		
 		if(is_computer){
 			this.mousedown=(e)=>{
@@ -80,7 +80,6 @@ class Button{
 				
 				if(this.ispress){
 					this.up(e)
-					document.write(e.changedTouches[0].pageX)
 					let pp=get_p_in_world(e.changedTouches[0].pageX,e.changedTouches[0].pageY)
 					
 					this.ispress=false
