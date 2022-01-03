@@ -1,3 +1,30 @@
+class swing{
+	constructor(start,long,radius,mass,deg=Math.PI/2,count=500000,origin_dis=long){
+		this.long=long
+		this.end=new vec2(0,0).set(long,deg).add(start)
+		this.start=start.scale(1,1)
+		this.center=new physic_ball(start.x,start.y,10,Infinity)
+		this.center.isgravity=false
+		this.ball=new physic_ball(this.end.x,this.end.y,radius,mass)
+		this.color='red'
+		world.add(this.ball)
+		world.add(this.center)
+		world.add_constraint(this.ball,this.center,origin_dis,count)
+	}
+	draw(){
+		ctx.beginPath()
+		ctx.moveTo(this.center.position.x,this.center.position.y)
+		ctx.lineTo(this.ball.position.x,this.ball.position.y)
+		ctx.lineWidth=5
+		ctx.closePath()
+		ctx.strokeStyle='white'
+		ctx.stroke()
+		this.center.draw_helper('white')
+		this.ball.draw_helper(this.color)
+	}
+	
+	
+}
 
 
 

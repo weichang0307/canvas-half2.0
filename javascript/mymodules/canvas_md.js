@@ -1,133 +1,3 @@
-
-class Arrow{
-	constructor(start,vec2,width=10,scale=1,color='white'){
-		this.start=start
-		this.vec2=vec2
-		this.width=width
-		this.color=color
-		this.scale=scale
-
-	}draw(){
-
-		ctx.beginPath()
-		ctx.moveTo(this.start.x,this.start.y)
-		ctx.lineTo(this.start.x+this.vec2.x*this.scale,this.start.y+this.vec2.y*this.scale)
-		ctx.lineWidth=this.width
-		ctx.strokeStyle=this.color
-		ctx.stroke()
-		ctx.save()
-		ctx.translate(this.start.x+this.vec2.x*this.scale,this.start.y+this.vec2.y*this.scale)
-
-		ctx.rotate(this.vec2.deg())
-		ctx.moveTo(0,0)
-		ctx.lineTo(-2*this.width,2*this.width)
-		ctx.lineTo(-2*this.width,-2*this.width)
-		ctx.closePath()
-		ctx.fillStyle=this.color
-		ctx.fill()
-		ctx.restore()
-
-	}
-	get_end(){
-		return new vec2(this.start.x+this.vec2.x*this.scale,this.start.y+this.vec2.y*this.scale)
-	}
-}
-class Button{
-	constructor(x,y,width,height,text,font=height*0.8,color='white',text_color='rgb(100,100,100)'){
-		this.position=new vec2(x,y)
-		this.scale=new vec2(width,height)
-		this.color=color
-		this.text_color=text_color
-		this.text=text
-		this.font=font
-		this.is_on=false
-		this.ispress=false
-		this.down=(e)=>{this.color='blue'}
-		this.up=(e)=>{this.color='white'}
-		this.click=(e)=>{this.color='red'}
-		
-		if(is_computer){
-			this.mousedown=(e)=>{
-				this.ispress=true
-				
-				let pp=get_p_in_world(e.pageX,e.pageY)
-				if(pp.x>this.position.x&&pp.x<this.position.x+this.scale.x&&pp.y>this.position.y&&pp.y<this.position.y+this.scale.y){
-					this.ispress=true
-					this.down(e)
-				}
-			}
-			this.mouseup=(e)=>{
-				let pp=get_p_in_world(e.pageX,e.pageY)
-				if(this.ispress){
-					this.up(e)
-					this.ispress=false
-					if(pp.x>this.position.x&&pp.x<this.position.x+this.scale.x&&pp.y>this.position.y&&pp.y<this.position.y+this.scale.y){
-						this.click(e)
-					}
-					
-					
-				}
-			}
-		}else{
-			this.touchstart=(e)=>{
-				let pp=get_p_in_world(e.touches[0].pageX,e.touches[0].pageY)
-				if(pp.x>this.position.x&&pp.x<this.position.x+this.scale.x&&pp.y>this.position.y&&pp.y<this.position.y+this.scale.y){
-					this.ispress=true
-					this.down(e)
-				}
-			}
-			this.touchend=(e)=>{
-				
-				if(this.ispress){
-					this.up(e)
-					let pp=get_p_in_world(e.changedTouches[0].pageX,e.changedTouches[0].pageY)
-					
-					this.ispress=false
-					if(pp.x>this.position.x&&pp.x<this.position.x+this.scale.x&&pp.y>this.position.y&&pp.y<this.position.y+this.scale.y){
-						this.click(e)
-					}
-
-					
-					
-				}
-			}
-		}
-		
-
-	}draw(){
-		ctx.beginPath()
-		ctx.fillStyle=this.color
-		ctx.fillRect(this.position.x,this.position.y,this.scale.x,this.scale.y)
-		ctx.fillStyle=this.text_color
-		ctx.font=this.font+'px Arial'
-		let ax=(this.scale.x-ctx.measureText(this.text).width)/2
-		ctx.fillText(this.text,this.position.x+ax,this.position.y+this.font)
-	}
-	on(){
-		if(is_computer){
-			window.addEventListener('mousedown',this.mousedown)
-			window.addEventListener('mouseup',this.mouseup)
-		}else{
-			window.addEventListener('touchstart',this.touchstart)
-			window.addEventListener('touchend',this.touchend)
-		}
-		
-		
-	}
-	off(){
-		if(is_computer){
-			window.removeEventListener('mousedown',this.mousedown)
-			window.removeEventListener('mouseup',this.mouseup)
-		}else{
-			window.removeEventListener('touchstart',this.touchstart)
-			window.removeEventListener('touchend',this.touchend)
-		}
-	}
-
-}
-
-
-
 class Slider{
 	constructor(x,y,long,width,word,mini,max,float=0,font=width*5){
 		this.max=max
@@ -139,25 +9,6 @@ class Slider{
 		this.long=long
 		this.width=width
 		this.font=font
-		this.ispress=false
-		this.is_on=false
-
-		this.mousedown=(e)=>{
-			this.ispress=true
-			let pp=get_p_in_world(e.pageX,e.pageY)
-			this.update(pp.x,pp.y)
-		}
-		this.mouseup=(e)=>{
-			this.ispress=false
-		}
-		this.mousemove=(e)=>{
-			if(this.ispress){
-				let pp=get_p_in_world(e.pageX,e.pageY)
-				this.update(pp.x,pp.y)
-			}
-			
-		}
-		
 		
 
 	}
@@ -169,20 +20,7 @@ class Slider{
 		let text=this.word+' '+Math.floor(this.value*10**this.float)/10**this.float+' '
 		ctx.fillText(text,this.position.x-ctx.measureText(text).width,this.position.y+this.width)
 	}
-	on(){
-		this.is_on=true
-		window.addEventListener('mousedown',this.mousedown)
-		window.addEventListener('mouseup',this.mouseup)
-		window.addEventListener('mousemove',this.mousemove)
-	}
-	off(){
-		this.is_on=false
-		window.removeEventListener('mousedown',this.mousedown)
-		window.removeEventListener('mouseup',this.mouseup)
-		window.removeEventListener('mousemove',this.mousemove)
-
-	}
-	update(x,y,addx=10,addy=this.width*2){
+	change(x,y,addx=0,addy=this.width*2){
 		if(this.position.x-addx<x&&x<this.position.x+this.long+addx&&this.position.y-addy<y&&y<this.position.y+this.width+addy){
 			this.value=(x-this.position.x)*(this.max-this.mini)/this.long+this.mini
 			if(this.value<this.mini){

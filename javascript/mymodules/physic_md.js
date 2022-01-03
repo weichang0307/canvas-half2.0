@@ -14,8 +14,7 @@ class physic_rect{
 	constructor(x,y,width,height,mass=0,resistance_vec2=new vec2(0,0)){
 		this.type='rect'						
 		this.position=new vec2(x,y)				
-		this.velocity=new vec2(0,0)		
-		this.acceleration=new vec2(0,0)		
+		this.velocity=new vec2(0,0)				
 		this.scale=new vec2(width,height)		
 		this.mass=mass							
 		this.resistance=resistance_vec2			
@@ -41,7 +40,6 @@ class physic_ball{
 		this.type='ball'
 		this.position=new vec2(x,y)
 		this.velocity=new vec2(0,0)
-		this.acceleration=new vec2(0,0)	
 		this.radius=radius
 		this.mass=mass
 		this.rebound=rebound
@@ -98,9 +96,7 @@ class physic_world{
 		}
 	}
 	update(time){
-		for(let i of this.objs){
-			i.acceleration.copy_in(i.velocity)
-		}
+		
 		
 		let time_=time/this.iteration//(second)
 		for(let k=0;k<this.iteration;k++){
@@ -115,9 +111,9 @@ class physic_world{
 			}
 			for(let i of this.objs){
 				if(i.isgravity){
-					i.velocity.add_in(this.gravity.scale(time_))
+					i.velocity=i.velocity.add(this.gravity.scale(time_))
 				}
-				i.velocity.multiply_in(new vec2(1,1).minus(i.resistance).square(time_))
+				i.velocity=i.velocity.multiply(new vec2(1,1).minus(i.resistance).square(time_))
 			}
 			for(let i=0;i<this.objs.length-1;i++){
 				for(let y=i+1;y<this.objs.length;y++){
@@ -125,11 +121,8 @@ class physic_world{
 				}
 			}
 			for(let i of this.objs){
-				i.position.add_in(i.velocity.scale(time_))
+				i.position=i.position.add(i.velocity.scale(time_))
 			}
-		}
-		for(let i of this.objs){
-			i.acceleration.copy_in(i.velocity.minus(i.acceleration).scale(1/time))
 		}
 	}
 	collision(a,b){

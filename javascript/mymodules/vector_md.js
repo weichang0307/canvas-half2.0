@@ -58,10 +58,6 @@ class vec2{
 	copy(){
 		return this.scale(1)
 	}
-	copy_in(vec2_){
-		this.x=vec2_.x
-		this.y=vec2_.y
-	}
 	long(){
 		return Math.sqrt(this.x**2+this.y**2)
 	}
@@ -78,19 +74,5 @@ class vec2{
 	set_in(long,deg){
 		this.x=long*Math.cos(deg)
 		this.y=long*Math.sin(deg)
-	}
-	set_deg(deg){
-		return new vec2(this.long()*Math.cos(deg),this.long()*Math.sin(deg))
-	}
-	set_deg_in(deg){
-		this.x=this.long()*Math.cos(deg)
-		this.y=this.long()*Math.sin(deg)
-	}
-	divide2(deg,add_deg=Math.PI/2){
-		let alpha=deg-this.deg()
-		let beta=this.deg()-(deg+add_deg)
-		let tangent=new vec2().set(this.long()*Math.sin(beta)/Math.sin(Math.PI-alpha-beta),deg)
-		let normal=new vec2().set(this.long()*Math.sin(alpha)/Math.sin(Math.PI-alpha-beta),deg+add_deg)
-		return {normal:normal,tangent:tangent}
 	}
 }
